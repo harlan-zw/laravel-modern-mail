@@ -46,7 +46,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ModernMail\\ModernMailServiceProvider"
+                "ModernMail\\Providers\\ModernMailServiceProvider"
             ]
         }
     },
