@@ -1,0 +1,58 @@
+{
+    "name": "harlan-zw/laravel-modern-mail",
+    "description": "Extends the Laravel mail experience.",
+    "keywords": [
+        "Mail",
+        "Email",
+        "MJML",
+        "Laravel"
+    ],
+    "homepage": "https://github.com/harlan-zw/laravel-modern-mail",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/harlan-zw/laravel-modern-mail/issues",
+        "source": "https://github.com/harlan-zw/laravel-modern-mail"
+    },
+    "authors": [
+        {
+            "name": "Harlan Wilton",
+            "homepage": "https://harlanzw.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "illuminate/filesystem": "^7.0|^8.0",
+        "illuminate/support": "^7.0|^8.0",
+        "illuminate/view": "^7.0|^8.0",
+        "soundasleep/html2text": "^1.1"
+    },
+    "require-dev": {
+        "spatie/phpunit-snapshot-assertions": "^4.2",
+        "guzzlehttp/guzzle": "^6.5",
+        "orchestra/testbench": "^5.0|^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ModernMail\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ModernMail\\ModernMailServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
