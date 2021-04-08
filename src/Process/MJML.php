@@ -66,7 +66,7 @@ class MJML
     public function buildCmdLineFromConfig()
     {
         return implode(' ', array_merge([
-            dirname(__DIR__, 2) . '/node_modules/.bin/mjml',
+            'mjml',
             $this->path,
             '-o',
             $this->compiledPath,
