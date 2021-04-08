@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f0650d9ce751fee4f9944d81c1f04ea9",
+    "content-hash": "8825a7a553cb3e435783d061691b149f",
     "packages": [
         {
             "name": "brick/math",
@@ -4497,6 +4497,60 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "kirschbaum-development/mail-intercept",
+            "version": "v0.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kirschbaum-development/mail-intercept.git",
+                "reference": "ddf32b7e1b3bd8ba5f56bda46714199bcdb10ad8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kirschbaum-development/mail-intercept/zipball/ddf32b7e1b3bd8ba5f56bda46714199bcdb10ad8",
+                "reference": "ddf32b7e1b3bd8ba5f56bda46714199bcdb10ad8",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.5",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": ">=3.5",
+                "phpunit/phpunit": ">=6.0",
+                "swiftmailer/swiftmailer": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "KirschbaumDevelopment\\MailIntercept\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brandon Ferens",
+                    "email": "brandon@kirschbaumdevelopment.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A test package for intercepting email sent from Laravel",
+            "homepage": "https://github.com/kirschbaum-development/mail-intercept",
+            "keywords": [
+                "Swift Mailer",
+                "email",
+                "laravel",
+                "test"
+            ],
+            "support": {
+                "issues": "https://github.com/kirschbaum-development/mail-intercept/issues",
+                "source": "https://github.com/kirschbaum-development/mail-intercept/tree/master"
+            },
+            "time": "2020-04-14T14:16:45+00:00"
         },
         {
             "name": "mockery/mockery",

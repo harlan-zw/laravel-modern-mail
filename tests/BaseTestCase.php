@@ -3,14 +3,15 @@
 namespace Tests;
 
 use Illuminate\Support\Facades\View as ViewFacade;
+use KirschbaumDevelopment\MailIntercept\WithMailInterceptor;
 use ModernMail\Providers\ModernMailServiceProvider;
 use Orchestra\Testbench\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;
 
 abstract class BaseTestCase extends TestCase
 {
-    use RendersMJML,
-        MatchesSnapshots;
+    use MatchesSnapshots,
+        WithMailInterceptor;
 
     protected function setUp(): void
     {
@@ -18,7 +19,7 @@ abstract class BaseTestCase extends TestCase
 
         $this->artisan('view:clear');
 
-        ViewFacade::addLocation(__DIR__ . '/resources/views');
+        ViewFacade::addLocation(__DIR__ . '/fixtures/resources/views');
     }
 
     protected function getPackageProviders($app): array

@@ -28,10 +28,11 @@
         "soundasleep/html2text": "^1.1"
     },
     "require-dev": {
-        "spatie/phpunit-snapshot-assertions": "^4.2",
         "guzzlehttp/guzzle": "^6.5",
+        "kirschbaum-development/mail-intercept": "^0.2.4",
         "orchestra/testbench": "^5.0|^6.0",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0",
+        "spatie/phpunit-snapshot-assertions": "^4.2"
     },
     "autoload": {
         "psr-4": {

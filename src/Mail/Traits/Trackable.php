@@ -7,6 +7,10 @@ use ModernMail\Mail\ModernMailMessage;
 
 trait Trackable {
 
+    public function setTrackingHeaders($enabled) {
+       return $enabled ? $this->enableTracking() : $this->disableTracking();
+    }
+
     public function enableTracking() {
         $this->enableTrackingClicks();
         $this->enableTrackingOpens();
@@ -19,76 +23,34 @@ trait Trackable {
         return $this;
     }
 
-    public function enableTrackingClicks() {
-        $this->callbacks['tracking.clicks'] = function (\Swift_Message $message) {
-            switch(config('mail.driver')) {
-                case 'mailgun':
-                    $message
-                        ->getHeaders()
-                        ->addTextHeader('X-Mailgun-Track-Clicks', 'yes');
-                    break;
-                case 'postmark':
-                    $message
-                        ->getHeaders()
-                        ->addTextHeader('X-PM-TrackLinks', 'true');
-                    break;
-            }
+    protected function setTrackableHeader($scope, $enable) {
+        $this->callbacks['tracking.' . $scope] = function (\Swift_Message $message) use ($scope, $enable) {
+            $mailDriver = config('mail.driver');
+
+            $valueKey = $enable ? 'header_on_value' : 'header_off_value';
+            $header = config("modern-mailer.services.$mailDriver.headers.track-$scope");
+            $value = config("modern-mailer.services.$mailDriver.$valueKey");
+            $message
+                ->getHeaders()
+                ->addTextHeader($header, $value);
         };
         return $this;
+    }
+
+    public function enableTrackingClicks() {
+        return $this->setTrackableHeader('clicks', true);
     }
 
     public function disableTrackingClicks() {
-        $this->callbacks['tracking.clicks'] = function (\Swift_Message $message) {
-            switch(config('mail.driver')) {
-                case 'mailgun':
-                    $message
-                        ->getHeaders()
-                        ->addTextHeader('X-Mailgun-Track-Clicks', 'no');
-                    break;
-                case 'postmark':
-                    $message
-                        ->getHeaders()
-                        ->addTextHeader('X-PM-TrackLinks', 'false');
-                    break;
-            }
-        };
-        return $this;
+        return $this->setTrackableHeader('clicks', false);
     }
 
     public function enableTrackingOpens() {
-        $this->callbacks['tracking.opens'] = function (\Swift_Message $message) {
-            switch(config('mail.driver')) {
-                case 'mailgun':
-                    $message
-                        ->getHeaders()
-                        ->addTextHeader('X-Mailgun-Track-Opens', 'yes');
-                    break;
-                case 'postmark':
-                    $message
-                        ->getHeaders()
-                        ->addTextHeader('X-PM-TrackOpens', 'true');
-                    break;
-            }
-        };
-        return $this;
+        return $this->setTrackableHeader('opens', true);
     }
 
     public function disableTrackingOpens() {
-        $this->callbacks['tracking.opens'] = function (\Swift_Message $message) {
-            switch(config('mail.driver')) {
-                case 'mailgun':
-                    $message
-                        ->getHeaders()
-                        ->addTextHeader('X-Mailgun-Track-Opens', 'no');
-                    break;
-                case 'postmark':
-                    $message
-                        ->getHeaders()
-                        ->addTextHeader('X-PM-TrackOpens', 'false');
-                    break;
-            }
-        };
-        return $this;
+        return $this->setTrackableHeader('opens', false);
     }
 
 }

@@ -8,9 +8,6 @@ use ModernMail\Mail\Traits\MJMLViews;
 
 class ModernMailMessage extends LegacyMailMessage
 {
-    public function previewText($text) {
-        $this->viewData['previewText'] = $text;
-    }
 
     use Taggable,
         Trackable,

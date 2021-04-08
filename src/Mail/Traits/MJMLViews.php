@@ -9,6 +9,10 @@ trait MJMLViews {
 
     public $mjml = '';
 
+    public function previewText($text) {
+        $this->viewData['previewText'] = $text;
+    }
+
     /**
      * Set the MJML template for the notification.
      *

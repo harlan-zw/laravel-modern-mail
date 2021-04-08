@@ -77,8 +77,6 @@ class MJML
     /**
      * Render the html content.
      *
-     * @return HtmlString
-     *
      * @throws \Throwable
      */
     public function renderHTML()
@@ -112,7 +110,16 @@ class MJML
      */
     public function renderText()
     {
-        return new HtmlString(Html2Text::convert($this->renderHTML()));
+        libxml_use_internal_errors(true);
+
+        return new HtmlString(Html2Text::convert($this->renderHTML()->toHtml()));
+    }
+
+    public function render() {
+        return [
+            'html' => $this->renderHTML(),
+            'text' => $this->renderText()
+        ];
     }
 
 }

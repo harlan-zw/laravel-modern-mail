@@ -7,12 +7,13 @@ use ModernMail\Mail\ModernMailMessage;
 
 trait Taggable {
 
+
     /**
      * The tag data for the message.
      *
      * @var array
      */
-    public $tags = [];
+    protected $tags = [];
 
 
     /**
@@ -25,15 +26,9 @@ trait Taggable {
     public function tag($tag)
     {
         $tags = array_merge($this->tags, [$tag]);
-        switch(config('mail.driver')) {
-            case 'mailgun':
-                $header = 'X-Mailgun-Tag';
-                break;
-            case 'postmark':
-                $header = 'X-PM-Tag';
-                break;
-        }
-        if (!isset($header)) {
+        $mailDriver = config('mail.driver');
+        $header = config("modern-mailer.services.$mailDriver.headers.tag");
+        if (empty($header)) {
             // @todo throw exception
             return $this;
         }
