@@ -11,6 +11,7 @@ trait MJMLViews {
 
     public function previewText($text) {
         $this->viewData['previewText'] = $text;
+        return $this;
     }
 
     /**
