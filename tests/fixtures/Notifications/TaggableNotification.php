@@ -34,7 +34,7 @@ class TaggableNotification extends Notification implements ShouldQueue {
                 'title' => 'test',
                 'siteUrl' => 'test',
             ])
-            ->tags($this->tag);
+            ->namespacedTag($this->tag);
     }
 
     /**

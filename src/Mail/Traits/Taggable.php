@@ -50,8 +50,7 @@ trait Taggable {
      * @param string $tags
      * @return ModernMailMessage
      */
-    public function tags(string $tags)
-    {
+    public function namespacedTag(string $tags) {
         // add the full tag with nested dots
         $this->tag($tags);
         // if there's still dots we run a recursive function to remove all of them
@@ -61,9 +60,17 @@ trait Taggable {
             // remove the last element
             array_pop($str);
             // recombine the elements, joining with the extract dot
-            $this->tags(implode('.', $str));
+            $this->namespacedTag(implode('.', $str));
         }
-
         return $this;
+    }
+
+
+    /**
+     * Sets up tagging for Laravel Telescope
+     * @return array
+     */
+    public function tags(): array {
+        return $this->tags;
     }
 }
