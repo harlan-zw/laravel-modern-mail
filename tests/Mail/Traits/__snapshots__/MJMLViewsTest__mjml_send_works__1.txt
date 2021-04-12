@@ -12,14 +12,20 @@ Content-Type: multipart/alternative;
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-test
+=20
 
-hi mjml test
+ test=20
 
-[Privacy](test/privacy) | [Terms & Conditions](=
-test/terms-and-conditions) | [Contact Us](test/get-in-touch)
-=C2=A9 Larav=
-el 2021.
+hi mjml test=20
+
+Privacy [/test/privacy] | Terms & Con=
+ditions
+[/test/terms-and-conditions] | Contact Us [/test/get-in-touch] =
+
+
+=C2=A9 Laravel 2021.=20
+
+=20
 
 --_=_swift_1617803604_13f6c75c299adff03ee1bdb43a3f577d_=_
 Content-Type: text/html; charset=utf-8

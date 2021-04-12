@@ -110,9 +110,8 @@ class MJML
      */
     public function renderText()
     {
-        libxml_use_internal_errors(true);
-
-        return new HtmlString(Html2Text::convert($this->renderHTML()->toHtml()));
+        $transformer = new \Html2Text\Html2Text($this->renderHTML()->toHtml());
+        return new HtmlString($transformer->getText());
     }
 
     public function render() {
