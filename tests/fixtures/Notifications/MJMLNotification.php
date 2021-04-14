@@ -10,6 +10,8 @@ class MJMLNotification extends Notification implements ShouldQueue {
 
     use Queueable;
 
+    public static $tag = 'test-tag';
+
     public $name = 'name test';
     public $title = 'title test';
 

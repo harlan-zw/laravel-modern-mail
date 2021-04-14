@@ -8,7 +8,6 @@ use ModernMail\Mail\Traits\MJMLViews;
 
 class ModernMailMessage extends LegacyMailMessage
 {
-
     use Taggable,
         Trackable,
         MJMLViews;

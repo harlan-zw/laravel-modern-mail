@@ -23,6 +23,9 @@ class MJMLViewsTest extends BaseTestCase {
         $interceptedMail = $this->interceptedMail()->first();
         $this->assertMailSentTo('test@test.com', $interceptedMail);
 
+        $this->assertMailHasHeader('X-Array-Tag', $interceptedMail);
+        $this->assertMailHeaderIs('X-Array-Tag', 'test-tag', $interceptedMail);
+
         // need to change dynamic data to be static so the snapshot matches
         $interceptedMail->setId('1230173678.4952f5eeb1432@swift.generated');
         $interceptedMail->setDate(Carbon::create(2020, 10, 10));

@@ -4,6 +4,7 @@ namespace ModernMail\Notifications\Channels;
 use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Notifications\Channels\MailChannel;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Str;
 use ModernMail\Mail\ModernMailMessage;
 use ModernMail\Process\MJML;
 use ReflectionClass;
@@ -22,6 +23,22 @@ class ModernMailChannel extends MailChannel {
     {
         /** @var ModernMailMessage $message */
         $message = $notification->toMail($notifiable);
+
+        if ($message instanceof ModernMailMessage) {
+            if (empty($message->tags())) {
+                if (property_exists($notification, 'tag')) {
+                    $tag = $notification::$tag;
+                    if (Str::contains($tag, '.')) {
+                        $message->namespacedTag($tag);
+                    } else {
+                        $message->tag($tag);
+                    }
+                } else {
+                    $reflectedNotification = new ReflectionClass($notification);
+                    $message->tag(Str::kebab($reflectedNotification->getShortName()));
+                }
+            }
+        }
 
         // make the viewData a bit smart
         $message->viewData = array_merge(

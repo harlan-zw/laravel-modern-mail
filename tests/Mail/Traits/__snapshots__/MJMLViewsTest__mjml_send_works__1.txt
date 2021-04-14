@@ -6,6 +6,7 @@ To: test@test.com
 MIME-Version: 1.0
 Content-Type: multipart/alternative;
  boundary="_=_swift_1617803604_13f6c75c299adff03ee1bdb43a3f577d_=_"
+X-Array-Tag: test-tag
 
 
 --_=_swift_1617803604_13f6c75c299adff03ee1bdb43a3f577d_=_
