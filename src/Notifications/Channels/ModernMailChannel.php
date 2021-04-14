@@ -24,24 +24,25 @@ class ModernMailChannel extends MailChannel {
         $message = $notification->toMail($notifiable);
 
         // make the viewData a bit smart
-        $message->viewData = array_merge(collect(
-        // add in public properties from the email
-            (new ReflectionClass($notification))
-                ->getProperties(ReflectionProperty::IS_PUBLIC)
-        )
-            // don't inherit properties from base classes
-            ->filter(function(ReflectionProperty $property) use ($notification) {
-                return $property->class === get_class($notification);
-            })
-            // map the properties to array format
-            ->mapWithKeys(function(ReflectionProperty $property) use ($notification) {
-                return [$property->getName() => $property->getValue($notification)];
-            })
+        $message->viewData = array_merge(
+            collect(
+            // add in public properties from the email
+                (new ReflectionClass($notification))
+                    ->getProperties(ReflectionProperty::IS_PUBLIC)
+            )
+                // don't inherit properties from base classes
+                ->filter(function(ReflectionProperty $property) use ($notification) {
+                    return $property->class === get_class($notification);
+                })
+                // map the properties to array format
+                ->mapWithKeys(function(ReflectionProperty $property) use ($notification) {
+                    return [$property->getName() => $property->getValue($notification)];
+                })
+                ->toArray(),
             // add the notifiable
-            ->merge([
-                'notifiable' => $notifiable,
-            ])
-            ->toArray(),
+            [
+                'notifiable' => $notifiable
+            ],
             // merge in the original view data after
             $message->viewData
         );
@@ -56,13 +57,13 @@ class ModernMailChannel extends MailChannel {
         }
 
         $this->mailer->mailer($message->mailer ?? null)->send(
-            $this->buildViewWithContext($message),
+            $this->buildView($message),
             array_merge($message->data(), $this->additionalMessageData($notification)),
             $this->messageBuilder($notifiable, $notification, $message)
         );
     }
 
-    public function buildViewWithContext($message) {
+    public function buildView($message) {
         if (!empty($message->mjml)) {
             $mjml = new MJML(view($message->mjml, $message->viewData));
             return $mjml->render();
