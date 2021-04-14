@@ -10,6 +10,9 @@ class MJMLNotification extends Notification implements ShouldQueue {
 
     use Queueable;
 
+    public $name = 'name test';
+    public $title = 'title test';
+
     /**
      * Get the mail representation of the notification.
      *
@@ -20,8 +23,6 @@ class MJMLNotification extends Notification implements ShouldQueue {
     {
         return (new ModernMailMessage)
             ->mjml('basic', [
-                'name' => 'mjml test',
-                'title' => 'test',
                 'siteUrl' => 'test',
             ]);
     }
