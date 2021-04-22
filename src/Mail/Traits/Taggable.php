@@ -2,8 +2,10 @@
 
 namespace ModernMail\Mail\Traits;
 
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 use ModernMail\Mail\ModernMailMessage;
+use ReflectionClass;
 
 trait Taggable {
 
@@ -61,6 +63,23 @@ trait Taggable {
             array_pop($str);
             // recombine the elements, joining with the extract dot
             $this->namespacedTag(implode('.', $str));
+        }
+        return $this;
+    }
+
+    public function addTagsFromNotification(Notification $notification) {
+        if (empty($this->tags())) {
+            if (property_exists($notification, 'tag')) {
+                $tag = $notification::$tag;
+                if (Str::contains($tag, '.')) {
+                    $this->namespacedTag($tag);
+                } else {
+                    $this->tag($tag);
+                }
+            } else {
+                $reflectedNotification = new ReflectionClass($notification);
+                $this->tag(Str::kebab($reflectedNotification->getShortName()));
+            }
         }
         return $this;
     }

@@ -34,13 +34,8 @@ trait MJMLViews {
 
     public function render() {
         if ($this->mjml) {
-            $view = View::make($this->mjml, $this->viewData);
-            $mjml = new MJML($view);
-
-            return [
-                'html' => $mjml->renderHTML(),
-                'text' => $mjml->renderText(),
-            ];
+            $mjml = new MJML(view($this->mjml, $this->data()));
+            return $mjml->render();
         }
         return parent::render();
     }

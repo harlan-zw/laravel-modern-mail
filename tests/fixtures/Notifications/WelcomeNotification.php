@@ -4,25 +4,21 @@ namespace Tests\fixtures\Notifications;
 use ModernMail\Mail\ModernMailMessage;
 use ModernMail\Notifications\ModernMailNotification;
 
-class MJMLNotification extends ModernMailNotification {
+class WelcomeNotification extends ModernMailNotification {
 
     public static $tag = 'test-tag';
 
-    public $name = 'name test';
     public $title = 'title test';
 
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail()
     {
         return (new ModernMailMessage)
-            ->mjml('basic', [
-                'siteUrl' => 'test',
-            ]);
+            ->mjml('welcome');
     }
 
 }

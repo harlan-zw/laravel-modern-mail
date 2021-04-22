@@ -4,13 +4,26 @@ namespace ModernMail\Notifications\Channels;
 use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Notifications\Channels\MailChannel;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Str;
 use ModernMail\Mail\ModernMailMessage;
-use ModernMail\Process\MJML;
-use ReflectionClass;
-use ReflectionProperty;
 
 class ModernMailChannel extends MailChannel {
+
+    public function preview($notifiable, Notification $notification) {
+        /** @var ModernMailMessage $message */
+        $message = $notification->toMail($notifiable);
+
+        if ($message instanceof ModernMailMessage) {
+            $message
+                ->addTagsFromNotification($notification)
+                ->inheritPropertiesFromNotification($notification)
+                ->notifiable($notifiable);
+        }
+
+        return $this->mailer->mailer($message->mailer ?? null)->render(
+            $this->buildView($message),
+            array_merge($message->data(), $this->additionalMessageData($notification)),
+        );
+    }
 
     /**
      * Send the given notification.
@@ -25,44 +38,11 @@ class ModernMailChannel extends MailChannel {
         $message = $notification->toMail($notifiable);
 
         if ($message instanceof ModernMailMessage) {
-            if (empty($message->tags())) {
-                if (property_exists($notification, 'tag')) {
-                    $tag = $notification::$tag;
-                    if (Str::contains($tag, '.')) {
-                        $message->namespacedTag($tag);
-                    } else {
-                        $message->tag($tag);
-                    }
-                } else {
-                    $reflectedNotification = new ReflectionClass($notification);
-                    $message->tag(Str::kebab($reflectedNotification->getShortName()));
-                }
-            }
+            $message
+                ->addTagsFromNotification($notification)
+                ->inheritPropertiesFromNotification($notification)
+                ->notifiable($notifiable);
         }
-
-        // make the viewData a bit smart
-        $message->viewData = array_merge(
-            collect(
-            // add in public properties from the email
-                (new ReflectionClass($notification))
-                    ->getProperties(ReflectionProperty::IS_PUBLIC)
-            )
-                // don't inherit properties from base classes
-                ->filter(function(ReflectionProperty $property) use ($notification) {
-                    return $property->class === get_class($notification);
-                })
-                // map the properties to array format
-                ->mapWithKeys(function(ReflectionProperty $property) use ($notification) {
-                    return [$property->getName() => $property->getValue($notification)];
-                })
-                ->all(),
-            // add the notifiable
-            [
-                'notifiable' => $notifiable
-            ],
-            // merge in the original view data after
-            $message->viewData
-        );
 
         if (! $notifiable->routeNotificationFor('mail', $notification) &&
             ! $message instanceof Mailable) {
@@ -81,10 +61,11 @@ class ModernMailChannel extends MailChannel {
     }
 
     public function buildView($message) {
-        if (!empty($message->mjml)) {
-            $mjml = new MJML(view($message->mjml, $message->viewData));
-            return $mjml->render();
+
+        if (($message instanceof ModernMailMessage) && !empty($message->mjml)) {
+            return $message->render();
         }
+
         return parent::buildView($message);
     }
 
