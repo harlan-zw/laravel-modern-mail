@@ -55,7 +55,7 @@ class ModernMailChannel extends MailChannel {
                 ->mapWithKeys(function(ReflectionProperty $property) use ($notification) {
                     return [$property->getName() => $property->getValue($notification)];
                 })
-                ->toArray(),
+                ->all(),
             // add the notifiable
             [
                 'notifiable' => $notifiable
