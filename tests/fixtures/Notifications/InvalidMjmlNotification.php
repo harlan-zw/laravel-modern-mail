@@ -4,7 +4,7 @@ namespace Tests\fixtures\Notifications;
 use ModernMail\Mail\ModernMailMessage;
 use ModernMail\Notifications\ModernMailNotification;
 
-class WelcomeNotification extends ModernMailNotification {
+class InvalidMjmlNotification extends ModernMailNotification {
 
     public static $tag = 'test-tag';
 
@@ -18,7 +18,7 @@ class WelcomeNotification extends ModernMailNotification {
     public function toMail()
     {
         return (new ModernMailMessage)
-            ->mjml('welcome-mjml');
+            ->mjml('invalid-mjml');
     }
 
 }

@@ -227,9 +227,9 @@
     <mj-section full-width="full-width" mj-class="brand-dark-blue" padding-top="40px" padding-bottom="40px">
         <mj-column >
             <mj-text align="center" padding="6px" color="#fff" font-size="13px" line-height="18px">
-                <a style="color: inherit" href="{{ $siteUrl }}/privacy">Privacy</a>   |
-                <a style="color: inherit" href="{{ $siteUrl }}/terms-and-conditions">Terms & Conditions</a>   |
-                <a style="color: inherit" href="{{ $siteUrl }}/get-in-touch">Contact Us</a>
+                <a style="color: inherit" href="{{ config('app.url') }}/privacy">Privacy</a>   |
+                <a style="color: inherit" href="{{ config('app.url') }}/terms-and-conditions">Terms & Conditions</a>   |
+                <a style="color: inherit" href="{{ config('app.url') }}/get-in-touch">Contact Us</a>
             </mj-text>
             <mj-text align="center" padding="6px"  color="#fff" font-size="13px" line-height="18px">
                 © {{ config('app.name') }} {{ date('Y') }}.

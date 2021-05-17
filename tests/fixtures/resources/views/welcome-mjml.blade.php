@@ -1,5 +1,5 @@
 @extends('mjml::default')
 
 @section('main')
-    <mj-text>hi {{ $user->name }}</mj-text>
+    hi {{ $notifiable->name }}
 @endsection

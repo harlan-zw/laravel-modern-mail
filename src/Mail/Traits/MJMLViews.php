@@ -2,8 +2,7 @@
 
 namespace ModernMail\Mail\Traits;
 
-use Illuminate\Support\Facades\View;
-use ModernMail\Process\MJML;
+use ModernMail\Process\MailMessageRendered;
 
 trait MJMLViews {
 
@@ -34,8 +33,7 @@ trait MJMLViews {
 
     public function render() {
         if ($this->mjml) {
-            $mjml = new MJML(view($this->mjml, $this->data()));
-            return $mjml->render();
+            return MailMessageRendered::render(view($this->mjml, $this->data()))->toArray();
         }
         return parent::render();
     }
