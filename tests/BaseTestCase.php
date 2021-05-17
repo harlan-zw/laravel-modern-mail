@@ -19,7 +19,16 @@ abstract class BaseTestCase extends TestCase
 
         $this->artisan('view:clear');
 
+
         ViewFacade::addLocation(__DIR__ . '/fixtures/resources/views');
+    }
+
+    protected function defineEnvironment($app)
+    {
+        // make sure testbench can find the mjml binary
+        $app['config']->set('modern-mailer.mjml_validate', 'error');
+        $app['config']->set('modern-mailer.mjml_binary_mode', 'binary');
+        $app['config']->set('modern-mailer.mjml_binary_path', dirname(__DIR__) . '/mjml');
     }
 
     protected function getPackageProviders($app): array

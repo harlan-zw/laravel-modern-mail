@@ -14,7 +14,9 @@ class PreviewTest extends BaseTestCase {
      * @test
      */
     public function can_preview_notification () {
-        WelcomeNotification::preview(new User());
+        $previewed = WelcomeNotification::preview(new User());
+
+        $this->assertMatchesHtmlSnapshot($previewed);
     }
 
 }
