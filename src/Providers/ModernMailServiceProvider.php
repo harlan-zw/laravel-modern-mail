@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use ModernMail\Notifications\Channels\ModernMailChannel;
 use ModernMail\Process\HtmlToText;
 use ModernMail\Process\MJML;
-use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Html;
 
 class ModernMailServiceProvider extends ServiceProvider
 {

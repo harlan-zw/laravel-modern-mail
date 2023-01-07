@@ -23,9 +23,9 @@
         "php": "^7.3|^8.0",
         "ext-json": "*",
         "html2text/html2text": "^4.3",
-        "illuminate/filesystem": "^7.0|^8.0",
-        "illuminate/support": "^7.0|^8.0",
-        "illuminate/view": "^7.0|^8.0"
+        "illuminate/filesystem": "^7.0|^8.0|^9.0",
+        "illuminate/support": "^7.0|^8.0|^9.0",
+        "illuminate/view": "^7.0|^8.0|^9.0"
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^6.5",
