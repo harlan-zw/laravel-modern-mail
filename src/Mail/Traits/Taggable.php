@@ -15,7 +15,7 @@ trait Taggable {
      *
      * @var array
      */
-    protected $tags = [];
+    public $tags = [];
 
 
     /**
