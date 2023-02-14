@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Str;
 use ModernMail\Mail\ModernMailMessage;
 use ReflectionClass;
+use Symfony\Component\Mime\Email;
 
 trait Taggable {
 
@@ -34,7 +35,7 @@ trait Taggable {
             // @todo throw exception
             return $this;
         }
-        $this->callbacks['tags'] = function (\Swift_Message $message) use ($tags, $header) {
+        $this->callbacks['tags'] = function (Email $message) use ($tags, $header) {
             foreach ($tags as $tag) {
                 $message
                     ->getHeaders()

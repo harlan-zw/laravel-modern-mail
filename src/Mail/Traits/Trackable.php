@@ -4,6 +4,7 @@ namespace ModernMail\Mail\Traits;
 
 use Illuminate\Support\Str;
 use ModernMail\Mail\ModernMailMessage;
+use Symfony\Component\Mime\Email;
 
 trait Trackable {
 
@@ -24,7 +25,7 @@ trait Trackable {
     }
 
     protected function setTrackableHeader($scope, $enable) {
-        $this->callbacks['tracking.' . $scope] = function (\Swift_Message $message) use ($scope, $enable) {
+        $this->callbacks['tracking.' . $scope] = function (Email $message) use ($scope, $enable) {
             $mailDriver = config('mail.driver');
 
             $valueKey = $enable ? 'header_on_value' : 'header_off_value';
