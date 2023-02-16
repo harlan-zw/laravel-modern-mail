@@ -48,8 +48,8 @@ return [
         'mailgun' => [
             'headers' => [
                 'tag' => 'X-Mailgun-Tag',
-                'track.opens' => 'X-Mailgun-Track-Opens',
-                'track.clicks' => 'X-Mailgun-Track-Clicks',
+                'track-opens' => 'X-Mailgun-Track-Opens',
+                'track-clicks' => 'X-Mailgun-Track-Clicks',
             ],
             'header_on_value' => 'on',
             'header_off_value' => 'off',
