@@ -36,11 +36,11 @@ return [
     */
 
     'services' => [
-        'array' => [
+        'default' => [
             'headers' => [
                 'tag' => 'X-Array-Tag',
-                'track-opens' => 'X-Array-Track-Opens',
-                'track-clicks' => 'X-Array-Track-Clicks',
+                'track-opens' => 'X-Track-Opens',
+                'track-clicks' => 'X-Track-Clicks',
             ],
             'header_on_value' => 'on',
             'header_off_value' => 'off',

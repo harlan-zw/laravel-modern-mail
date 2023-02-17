@@ -15,9 +15,9 @@ class TrackableTest extends BaseTestCase {
 
         $this->interceptMail();
 
-        $trackClicksHeader = config('modern-mailer.services.array.headers.track-clicks');
-        $trackOpensHeader = config('modern-mailer.services.array.headers.track-opens');
-        $val = config('modern-mailer.services.array.header_on_value');
+        $trackClicksHeader = config('modern-mailer.services.default.headers.track-clicks');
+        $trackOpensHeader = config('modern-mailer.services.default.headers.track-opens');
+        $val = config('modern-mailer.services.default.header_on_value');
 
         Notification::route('mail', 'test@test.com')
             ->notifyNow(new TrackableNotification(true));
@@ -38,9 +38,9 @@ class TrackableTest extends BaseTestCase {
 
         $this->interceptMail();
 
-        $trackClicksHeader = config('modern-mailer.services.array.headers.track-clicks');
-        $trackOpensHeader = config('modern-mailer.services.array.headers.track-opens');
-        $val = config('modern-mailer.services.array.header_off_value');
+        $trackClicksHeader = config('modern-mailer.services.default.headers.track-clicks');
+        $trackOpensHeader = config('modern-mailer.services.default.headers.track-opens');
+        $val = config('modern-mailer.services.default.header_off_value');
 
         Notification::route('mail', 'test@test.com')
             ->notifyNow(new TrackableNotification(false));

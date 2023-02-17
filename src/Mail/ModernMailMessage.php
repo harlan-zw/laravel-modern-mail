@@ -32,6 +32,9 @@ class ModernMailMessage extends LegacyMailMessage
         $this->withSymfonyMessage(function(Email $email) {
             $headers = $email->getHeaders();
             $mailDriver = config('mail.driver');
+            if (empty(config("modern-mailer.services.$mailDriver"))) {
+                $mailDriver = 'default';
+            }
             $header = config("modern-mailer.services.$mailDriver.headers.tag");
             foreach ($this->tags as $tag) {
                 $headers->addTextHeader($header, $tag);

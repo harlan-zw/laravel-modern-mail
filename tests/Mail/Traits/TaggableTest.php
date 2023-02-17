@@ -15,7 +15,7 @@ class TaggableTest extends BaseTestCase {
 
         $this->interceptMail();
 
-        $header = config('modern-mailer.services.array.headers.tag');
+        $header = config('modern-mailer.services.default.headers.tag');
 
         Notification::route('mail', 'test@test.com')
             ->notifyNow(new TaggableNotification('test-tag'));
